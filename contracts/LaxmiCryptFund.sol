@@ -16,6 +16,10 @@ contract LaxmiCryptFund {
     // Declaring conract owner
     address payable public owner;
 
+    // Tracking won and lost investors
+    uint256 investorsWon;
+    uint256 investorsLost;
+
     // List of memos
     Memo[] public Memos;
 
@@ -44,6 +48,22 @@ contract LaxmiCryptFund {
         minInvestment = 10e5 gwei;
         maxInvestment = 10e7 gwei;
         randomNonce = 0;
+        investorsWon = 0;
+        investorsLost = 0;
+    }
+
+    /**
+     * @dev Get investors won
+     */
+    function getWon() public view returns (uint256) {
+        return (investorsWon);
+    }
+
+    /**
+     * @dev Get investors lost
+     */
+    function getLost() public view returns (uint256) {
+        return (investorsLost);
     }
 
     /**
@@ -126,6 +146,9 @@ contract LaxmiCryptFund {
 
         // If luckyNumber is greater than 50, investor wins
         if (luckyNumber >= 50) {
+            // Investor won
+            investorsWon++;
+
             // Adding memo to Memos
             Memos.push(
                 Memo(
@@ -149,6 +172,9 @@ contract LaxmiCryptFund {
             // Sending double of investment
             payable(msg.sender).transfer(2 * msg.value);
         } else {
+            // Investor Lost
+            investorsLost++;
+
             // Adding memo to Memos
             Memos.push(
                 Memo(
