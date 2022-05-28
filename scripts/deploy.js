@@ -4,7 +4,9 @@ async function main() {
 	const LaxmiCryptFundContractFactory = await hre.ethers.getContractFactory(
 		"LaxmiCryptFund"
 	);
-	const LaxmiCryptFund = await LaxmiCryptFundContractFactory.deploy();
+	const LaxmiCryptFund = await LaxmiCryptFundContractFactory.deploy({
+		value: hre.ethers.utils.parseEther("1"),
+	});
 	await LaxmiCryptFund.deployed();
 
 	console.log(`\nLaxmiCryptFund contract has been deplyed.`);

@@ -10,6 +10,9 @@ contract LaxmiCryptFund {
     uint256 public minInvestment;
     uint256 public maxInvestment;
 
+    // Random Nonce for random number generation
+    uint256 public randomNonce;
+
     // Declaring conract owner
     address payable public owner;
 
@@ -19,6 +22,7 @@ contract LaxmiCryptFund {
     // Event to emit a Memo
     event NewMemo(
         address indexed investor,
+        uint256 luckyNumber,
         string result,
         uint256 investment,
         uint256 timestamp
@@ -27,6 +31,7 @@ contract LaxmiCryptFund {
     // Memo structure
     struct Memo {
         address investor;
+        uint256 luckyNumber;
         string result;
         uint256 investment;
         uint256 timestamp;
@@ -36,8 +41,23 @@ contract LaxmiCryptFund {
     constructor() payable {
         owner = payable(msg.sender);
         investors = 0;
-        minInvestment = 0.0001 ether;
-        maxInvestment = 0.01 ether;
+        minInvestment = 10e5 gwei;
+        maxInvestment = 10e7 gwei;
+        randomNonce = 0;
+    }
+
+    /**
+     * @dev Fund the smart contract
+     */
+    function fundContract() public payable {
+        require(msg.value > 0, "Invalid Amount.");
+    }
+
+    /**
+     * @dev Get the balance of smart contract
+     */
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
     }
 
     /**
@@ -68,8 +88,15 @@ contract LaxmiCryptFund {
     /**
      * @dev Generates a random number
      */
-    function generateRandomNumber() public view returns (uint256) {
-        return uint256(blockhash(block.number - 1)) % 100;
+    function generateRandomNumber() internal returns (uint256) {
+        randomNonce++;
+
+        return
+            uint256(
+                keccak256(
+                    abi.encodePacked(block.timestamp, msg.sender, randomNonce)
+                )
+            ) % 100;
     }
 
     /**
@@ -91,7 +118,7 @@ contract LaxmiCryptFund {
         // Maximum value sent should be less than 0.01
         require(msg.value <= maxInvestment, "Too much to invest.");
 
-        // Fund should be having required funds
+        // Crypt Fund should be having required funds
         require(address(this).balance > 2 * msg.value, "We just scammed you!");
 
         // Generating a lucky number
@@ -100,19 +127,47 @@ contract LaxmiCryptFund {
         // If luckyNumber is greater than 50, investor wins
         if (luckyNumber >= 50) {
             // Adding memo to Memos
-            Memos.push(Memo(msg.sender, "doubled", msg.value, block.timestamp));
+            Memos.push(
+                Memo(
+                    msg.sender,
+                    luckyNumber,
+                    "doubled",
+                    msg.value,
+                    block.timestamp
+                )
+            );
 
             // Emitting the event
-            emit NewMemo(msg.sender, "doubled", msg.value, block.timestamp);
+            emit NewMemo(
+                msg.sender,
+                luckyNumber,
+                "doubled",
+                msg.value,
+                block.timestamp
+            );
 
             // Sending double of investment
             payable(msg.sender).transfer(2 * msg.value);
         } else {
             // Adding memo to Memos
-            Memos.push(Memo(msg.sender, "lost", msg.value, block.timestamp));
+            Memos.push(
+                Memo(
+                    msg.sender,
+                    luckyNumber,
+                    "lost",
+                    msg.value,
+                    block.timestamp
+                )
+            );
 
             // Emitting the event
-            emit NewMemo(msg.sender, "lost", msg.value, block.timestamp);
+            emit NewMemo(
+                msg.sender,
+                luckyNumber,
+                "lost",
+                msg.value,
+                block.timestamp
+            );
         }
 
         // Increasing the count of investors
