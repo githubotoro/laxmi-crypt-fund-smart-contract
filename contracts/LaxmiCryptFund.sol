@@ -13,12 +13,12 @@ contract LaxmiCryptFund {
     // Random Nonce for random number generation
     uint256 public randomNonce;
 
-    // Declaring conract owner
+    // Declaring contract owner
     address payable public owner;
 
     // Tracking won and lost investors
-    uint256 investorsWon;
-    uint256 investorsLost;
+    uint256 public investorsWon;
+    uint256 public investorsLost;
 
     // List of memos
     Memo[] public Memos;
@@ -47,7 +47,7 @@ contract LaxmiCryptFund {
         investors = 0;
         minInvestment = 10e5 gwei;
         maxInvestment = 10e7 gwei;
-        randomNonce = 0;
+        randomNonce = 1;
         investorsWon = 0;
         investorsLost = 0;
     }
@@ -88,6 +88,31 @@ contract LaxmiCryptFund {
     }
 
     /**
+     * @dev Get all parameters
+     */
+    function getAll()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            Memo[] memory
+        )
+    {
+        return (
+            investors,
+            minInvestment,
+            maxInvestment,
+            investorsWon,
+            investorsLost,
+            Memos
+        );
+    }
+
+    /**
      * @dev Change the limits of min and max investments
      * @param _minInvestment Minimum value of investment
      * @param _maxInvestment Maximum value of investment
@@ -114,7 +139,11 @@ contract LaxmiCryptFund {
         return
             uint256(
                 keccak256(
-                    abi.encodePacked(block.timestamp, msg.sender, randomNonce)
+                    abi.encodePacked(
+                        block.timestamp,
+                        block.difficulty,
+                        randomNonce
+                    )
                 )
             ) % 100;
     }
