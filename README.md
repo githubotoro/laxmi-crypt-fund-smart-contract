@@ -83,11 +83,10 @@ This project is inspired from Neeraj Vora's directorial "Phir Hera Pheri" (2006)
 
 ### Built With 🔍
 
--   [React.js](https://reactjs.org/)
--   [Moralis](https://moralis.io/)
 -   [Ethers.js](https://docs.ethers.io/v5/)
+-   [Hardhat](https://hardhat.org/)
+-   [Solidity](https://docs.soliditylang.org/en/v0.8.12/)
 -   [Alchemy](https://www.alchemy.com/)
--   [SweetAlert2](https://sweetalert2.github.io/)
 
 <!-- BUILT WITH -->
 
