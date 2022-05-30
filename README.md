@@ -8,7 +8,7 @@
   </a>
   
   <p align="center">
-    <a href="https://www.producthunt.com/@yupuday"><strong>Product Hunt »</strong></a>
+    <a href="https://www.producthunt.com/posts/laxmi-crypt-fund"><strong>Product Hunt »</strong></a>
     <br />
     <a href="https://laxmi-crypt-fund.vercel.app/">View Project</a>
     |
