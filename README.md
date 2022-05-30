@@ -162,7 +162,7 @@ All you need to get started with this project is **MATIC!** 😄
     npm install
     ```
 
-5.  Modify **CryptoChai.sol** under **/contracts** as per your requirements.
+5.  Modify **LaxmiCryptFund.sol** under **/contracts** as per your requirements.
 
 6.  Deploying and testing **(Locally)**.
 
@@ -190,7 +190,7 @@ All you need to get started with this project is **MATIC!** 😄
 
 ## Contributing 🤝
 
-"Laxmi Crypt Fund" is a community project and any contributions you make are greatly appreciated. If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "chai". 🏷
+"Laxmi Crypt Fund" is a community project and any contributions you make are greatly appreciated. If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "Laxmi". 🏷
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/LaxmiFeature`)
