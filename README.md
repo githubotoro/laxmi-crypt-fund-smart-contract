@@ -123,7 +123,7 @@ This project is inspired from Neeraj Vora's directoral "Phir Hera Pheri" (2006).
 
 ## Getting Started 🚀
 
-All you need to get started with this project is **MATIC!** 😄
+All you need to get started with this project is to have seen **Phir Hera Pheri!** movie 😄
 
 <a name="installation"></a>
 
